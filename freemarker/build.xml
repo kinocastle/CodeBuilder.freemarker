@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<project default="init">
+<target name="init">
+	<java classname="codebuilder.freemarker.Builder" fork="true">
+		<arg value="test.xml" />
+		<classpath>
+			<pathelement path="./lib/Builder.jar" />
+			<pathelement path="./lib/freemarker.jar" />
+			<pathelement path="./lib/mysql-connector-java-5.1.41-bin.jar" />
+		</classpath>
+		<sysproperty key="file.encoding" value="UTF-8" />
+	</java>
+</target>
+</project>
