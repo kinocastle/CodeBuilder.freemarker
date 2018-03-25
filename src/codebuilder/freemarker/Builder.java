@@ -125,32 +125,18 @@ public class Builder
 		StringBuilder sb = new StringBuilder();
 		if(file.isFile())
 		{
-//			BufferedReader reader = null;
 			try(BufferedReader reader = new BufferedReader(new FileReader(file)))// try-with-resources
 			{
-//				reader = new BufferedReader(new FileReader(file));
-				for(String s = null; (s = reader.readLine()) != null;)
+				String s;
+				while((s = reader.readLine()) != null)
 				{
 					sb.append(s);
-	            }
+				}
 			}
 			catch(Exception e)
 			{
 				e.printStackTrace();
 			}
-//			finally
-//			{
-//				if(reader != null)
-//				{
-//					try
-//					{
-//						reader.close();
-//					}
-//					catch(Exception e)
-//					{
-//					}
-//				}
-//			}
 		}
 		return sb.toString();
 	}
