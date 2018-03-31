@@ -8,27 +8,17 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import codebuilder.freemarker.BuilderModel.Code;
+import codebuilder.freemarker.BuilderConfig.Code;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 public class Builder
 {
-	private BuilderModel builder;
-	private Configuration config;
+	private BuilderConfig config;
 
-	public Builder(BuilderModel builder)
+	public Builder(BuilderConfig config)
 	{
-		try
-		{
-			this.builder = builder;
-			config = new Configuration(Configuration.VERSION_2_3_22);
-	        config.setDefaultEncoding(builder.charsetText);
-			config.setDirectoryForTemplateLoading(new File(builder.templatesPath));
-		}
-		catch(IOException e)
-		{
-		}
+		this.config = config;
 	}
 
 	public void build()
@@ -36,16 +26,20 @@ public class Builder
 		TableDao dao = null;
 		try
 		{
-			Class<?> cls = Class.forName(builder.connectType);
+			Configuration configuration = new Configuration(Configuration.VERSION_2_3_22);
+			configuration.setDefaultEncoding(config.charsetText);
+			configuration.setDirectoryForTemplateLoading(new File(config.templatesPath));
+
+			Class<?> cls = Class.forName(config.connectType);
 			dao = (TableDao)cls.newInstance();
-			dao.initConnect(builder.connectUrl);
-			for(Code code : builder.builderCodes)
+			dao.initConnect(config.connectUrl);
+			for(Code code : config.builderCodes)
 			{
 				TableModel table = dao.queryTable(code.table);
 				Map<String, Object> param = getParam(table, code);
-				for(BuilderModel.Template tpl : builder.templates)
+				for(BuilderConfig.Template tpl : config.templates)
 				{
-					if(!tpl.name.equals(builder.builderTemplatename))
+					if(!tpl.name.equals(config.builderTemplatename))
 					{
 						continue;
 					}
@@ -54,9 +48,9 @@ public class Builder
 						continue;
 					}
 					String viewpath = tpl.viewpath;
-					String path = builder.builderProject + tpl.path
-						.replace("{src}", builder.builderSrc)
-						.replace("{web}", builder.builderWeb)
+					String path = config.builderProject + tpl.path
+						.replace("{src}", config.builderSrc)
+						.replace("{web}", config.builderWeb)
 						.replace("{model}", code.model)
 						.replace("{module}", code.module)
 						.replace("{namespace}", code.namespace)
@@ -64,7 +58,7 @@ public class Builder
 						.replace("//", "/");
 					try
 					{
-						Template template = config.getTemplate(viewpath);
+						Template template = configuration.getTemplate(viewpath);
 						File file = createNewFile(path);
 						template.process(param, new FileWriter(file));
 						System.out.println("生成成功：" + path);
@@ -92,8 +86,8 @@ public class Builder
 	private Map<String, Object> getParam(TableModel table, Code code)
 	{
 		Map<String, Object> map = new HashMap<>();
-		map.put("params", builder.params);
-		map.put("developer", builder.builderDeveloper);
+		map.put("params", config.params);
+		map.put("developer", config.builderDeveloper);
 		map.put("namespace", code.namespace);
 		map.put("frame", code.frame);
 		map.put("model", code.model);
@@ -153,15 +147,15 @@ public class Builder
 
 	public static void main(String[] args)
 	{
-//		String builderFile = Builder.class.getResource("/Builder.xml").getPath();
-//		String builderFile = Builder.class.getClassLoader().getResource("Builder.xml").getPath();
-		String builderFile = getLocation("Builder.xml");
+//		String configPath = Builder.class.getResource("/Builder.xml").getPath();
+//		String configPath = Builder.class.getClassLoader().getResource("Builder.xml").getPath();
+		String configPath = getLocation("Builder.xml");
 		if(args.length > 0)
 		{
-			builderFile = System.getProperty("user.dir") + "/" + args[0];
-			builderFile = builderFile.replace("//", "/");
+			configPath = System.getProperty("user.dir") + "/" + args[0];
+			configPath = configPath.replace("//", "/");
 		}
-		BuilderModel builder = new BuilderParser().parse(readTextFile(builderFile));
+		BuilderConfig builder = new BuilderParser().parse(readTextFile(configPath));
 		Builder builderUtil = new Builder(builder);
 		builderUtil.build();
 	}
