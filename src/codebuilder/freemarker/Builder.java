@@ -155,8 +155,8 @@ public class Builder
 			configPath = System.getProperty("user.dir") + "/" + args[0];
 			configPath = configPath.replace("//", "/");
 		}
-		BuilderConfig builder = new BuilderParser().parse(readTextFile(configPath));
-		Builder builderUtil = new Builder(builder);
-		builderUtil.build();
+		BuilderConfig config = new BuilderParser().parse(readTextFile(configPath));
+		Builder builder = new Builder(config);
+		builder.build();
 	}
 }
