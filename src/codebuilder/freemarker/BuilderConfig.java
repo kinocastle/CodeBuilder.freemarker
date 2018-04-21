@@ -32,7 +32,7 @@ public class BuilderConfig
 	public String templatesPath;
 	public List<Template> templates = new ArrayList<>();
 	//params
-	public Map<String, String> params = new HashMap<>();;
+	public Map<String, String> params = new HashMap<>();
 	//connect
 	public String connectName;
 	public String connectType;
