@@ -53,7 +53,7 @@ public class Builder
 						.replace("{web}", config.builderWeb)
 						.replace("{model}", code.model)
 						.replace("{module}", code.module)
-						.replace("{namespace}", code.namespace)
+						.replace("{namespace}", code.namespace.replace(".", "/"))
 						.replace("{webmodule}", code.webmodule)
 						.replace("//", "/");
 					try
