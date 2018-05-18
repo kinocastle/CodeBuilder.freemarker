@@ -19,7 +19,7 @@
 		<param name="test" value="随便写" />
 	</params>
 
-	<connect name="OracleModel.dll" type="codebuilder.freemarker.MySqlDao" url="jdbc:mysql://localhost:3306/rzfw?user=root&amp;password=root&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true" />>
+	<connect name="OracleModel.dll" type="codebuilder.freemarker.MySqlDao" url="jdbc:mysql://localhost:3306/rzfw?user=root&amp;password=root&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true" />
 	<builder developer="张胤" project="D:/code" templatename="base" src="src" web="web">
 		<code frame="dswork" namespace="rzfw" module="" webmodule="/manage/rzfw/jgrk" table="rzfw_jgrk" model="RzfwJgrk" comment="mybatis" />
 		<code frame="dswork" namespace="rzfw" module="" webmodule="/manage/rzfw/jrcp" table="rzfw_jrcp" model="RzfwJrcp" comment="mybatis" />
