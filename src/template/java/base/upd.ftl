@@ -8,7 +8,7 @@
 <%@include file="/commons/include/updAjax.jsp"%>
 <script type="text/javascript">
 $${frame}.callback = function(){if($${frame}.result.type == 1){
-	location.href = "get${model}.htm?page=${r'$'}{page}";
+	location.href = "get${model}.htm?page=${'$'}{page}";
 }};
 </script>
 </head>
@@ -18,7 +18,7 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 		<td class="title">修改</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="get${model}.htm?page=${r'$'}{page}">返回</a>
+			<a class="back" href="get${model}.htm?page=${'$'}{page}">返回</a>
 		</td>
 	</tr>
 </table>
@@ -30,12 +30,12 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 		<#if c.nameLowerCamel != 'memo'>
 	<tr>
 		<td class="form_title">${c.comment}</td>
-		<td class="form_input"><input type="text" name="${c.nameLowerCamel}" maxlength="100" value="${r'$'}{fn:escapeXml(po.${c.nameLowerCamel})}" /></td>
+		<td class="form_input"><input type="text" name="${c.nameLowerCamel}" maxlength="100" value="${'$'}{fn:escapeXml(po.${c.nameLowerCamel})}" /></td>
 	</tr>
 		<#else>
 	<tr>
 		<td class="form_title">${c.comment}</td>
-		<td class="form_input"><textarea name="${c.nameLowerCamel}" style="width:400px;height:60px;">${r'$'}{fn:escapeXml(po.${c.nameLowerCamel})}</textarea></td>
+		<td class="form_input"><textarea name="${c.nameLowerCamel}" style="width:400px;height:60px;">${'$'}{fn:escapeXml(po.${c.nameLowerCamel})}</textarea></td>
 	</tr>
 		</#if>
 	</#if>
@@ -43,7 +43,7 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 </table>
 <#list columnList as c>
 	<#if c.iskey>
-<input type="hidden" name="${c.nameLowerCamel}" value="${r'$'}{po.${c.nameLowerCamel}}" />
+<input type="hidden" name="${c.nameLowerCamel}" value="${'$'}{po.${c.nameLowerCamel}}" />
 	</#if>
 </#list>
 </form>

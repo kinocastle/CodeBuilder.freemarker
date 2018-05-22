@@ -8,11 +8,11 @@
 <%@include file="/commons/include/get.jsp"%>
 <script type="text/javascript">
 $(function(){
-	$${frame}.page.menu("del${model}.htm", "upd${model}1.htm", "get${model}ById.htm", "${r'$'}{pageModel.currentPage}");
+	$${frame}.page.menu("del${model}.htm", "upd${model}1.htm", "get${model}ById.htm", "${'$'}{pageModel.currentPage}");
 });
 $${frame}.doAjax = true;
 $${frame}.callback = function(){if($${frame}.result.type == 1){
-	location.href = "get${model}.htm?page=${r'$'}{pageModel.currentPage}";
+	location.href = "get${model}.htm?page=${'$'}{pageModel.currentPage}";
 }};
 </script>
 </head> 
@@ -21,7 +21,7 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 	<tr>
 		<td class="title">${table.comment}列表</td>
 		<td class="menuTool">
-			<a class="insert" href="add${model}1.htm?page=${r'$'}{pageModel.currentPage}">添加</a>
+			<a class="insert" href="add${model}1.htm?page=${'$'}{pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
@@ -33,7 +33,7 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 		<td class="input">
 <#list columnList as c>
 	<#if !c.iskey>
-			&nbsp;${c.comment}：<input type="text" class="text" name="${c.nameLowerCamel}" value="${r'$'}{fn:escapeXml(param.${c.nameLowerCamel})}" />
+			&nbsp;${c.comment}：<input type="text" class="text" name="${c.nameLowerCamel}" value="${'$'}{fn:escapeXml(param.${c.nameLowerCamel})}" />
 	</#if>
 </#list>
 		</td>
@@ -53,22 +53,22 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 	</#if>
 </#list>
 	</tr>
-<c:forEach items="${r'$'}{pageModel.result}" var="d">
+<c:forEach items="${'$'}{pageModel.result}" var="d">
 	<tr>
-		<td><input name="keyIndex" type="checkbox" value="${r'$'}{d.id}" /></td>
-		<td class="menuTool" keyIndex="${r'$'}{d.id}">&nbsp;</td>
+		<td><input name="keyIndex" type="checkbox" value="${'$'}{d.id}" /></td>
+		<td class="menuTool" keyIndex="${'$'}{d.id}">&nbsp;</td>
 <#list columnList as c>
 	<#if !c.iskey>
-		<td>${r'$'}{fn:escapeXml(d.${c.nameLowerCamel})}</td>
+		<td>${'$'}{fn:escapeXml(d.${c.nameLowerCamel})}</td>
 	</#if>
 </#list>
 	</tr>
 </c:forEach>
 </table>
-<input name="page" type="hidden" value="${r'$'}{pageModel.currentPage}" />
+<input name="page" type="hidden" value="${'$'}{pageModel.currentPage}" />
 </form>
 <table border="0" cellspacing="0" cellpadding="0" class="bottomTable">
-	<tr><td>${r'$'}{pageNav.page}</td></tr>
+	<tr><td>${'$'}{pageNav.page}</td></tr>
 </table>
 </body>
 </html>

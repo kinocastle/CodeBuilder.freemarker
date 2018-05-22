@@ -9,21 +9,21 @@
 	insert into ${table.name}
 	(<#list columnList as c>${c.name}<#if c_has_next>, </#if></#list>)
 	values
-	(<#list columnList as c>${r'#'}{${c.nameLowerCamel}}<#if c_has_next>, </#if></#list>)
+	(<#list columnList as c>${'#'}{${c.nameLowerCamel}}<#if c_has_next>, </#if></#list>)
 </insert>
 
 <delete id="delete">
-	delete from ${table.name} where ID=${r'#'}{id}
+	delete from ${table.name} where ID=${'#'}{id}
 </delete>
 
 <update id="update" parameterType="${namespace}.model${module}.${model}">
 	update ${table.name} set
 <#list columnList as c>
 	<#if !c.iskey>
-		${c.name}=${r'#'}{${c.nameLowerCamel}}<#if c_has_next>,</#if>
+		${c.name}=${'#'}{${c.nameLowerCamel}}<#if c_has_next>,</#if>
 	</#if>
 </#list>
-	where ID=${r'#'}{id}
+	where ID=${'#'}{id}
 </update>
 
 <resultMap id="result" type="${namespace}.model${module}.${model}">
@@ -42,16 +42,16 @@
 	<where>
 <#list columnList as c>
 	<#if c.iskey>
-		<if test="@Ognl@isNotEmpty(${c.nameLowerCamel})"> and ${c.name}=${r'#'}{id} </if>
+		<if test="@Ognl@isNotEmpty(${c.nameLowerCamel})"> and ${c.name}=${'#'}{id} </if>
 	<#else>
-		<if test="@Ognl@isNotEmpty(${c.nameLowerCamel})"> and ${c.name} like ${r'#'}{${c.nameLowerCamel}, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(${c.nameLowerCamel})"> and ${c.name} like ${'#'}{${c.nameLowerCamel}, typeHandler=LikeTypeHandler} </if>
 	</#if>
 </#list>
 	</where>
 </sql>
 
 <select id="select" resultMap="result">
-	select <include refid="columns" /> from ${table.name} where ID=${r'#'}{id}
+	select <include refid="columns" /> from ${table.name} where ID=${'#'}{id}
 </select>
 
 <select id="query" resultMap="result">

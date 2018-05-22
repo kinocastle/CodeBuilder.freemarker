@@ -23,12 +23,12 @@
 		<#if c.nameLowerCamel != 'memo'>
 	<tr>
 		<td class="form_title">${c.comment}</td>
-		<td class="form_input">${r'$'}{fn:escapeXml(po.${c.nameLowerCamel})}</td>
+		<td class="form_input">${'$'}{fn:escapeXml(po.${c.nameLowerCamel})}</td>
 	</tr>
 		<#else>
 	<tr>
 		<td class="form_title">${c.comment}</td>
-		<td class="form_input"><textarea class="readonlytext" style="width:400px;height:60px;">${r'$'}{fn:escapeXml(po.${c.nameLowerCamel})}</textarea></td>
+		<td class="form_input"><textarea class="readonlytext" style="width:400px;height:60px;">${'$'}{fn:escapeXml(po.${c.nameLowerCamel})}</textarea></td>
 	</tr>
 		</#if>
 	</#if>
