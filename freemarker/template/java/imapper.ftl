@@ -37,7 +37,7 @@
 </resultMap>
 
 <sql id="columns"><#list columnList as c>${c.name}<#if c_has_next>, </#if></#list></sql>
-	
+
 <sql id="dynamicWhere">
 	<where>
 <#list columnList as c>
